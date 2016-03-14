@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Animal</title>
+</head>
+<body>
+<%if(typeof(errors) != 'undefined') { %>
+      <h3><%= errors%></h3>
+  <%}%>
+
+
+  <div class="wrapper">
+  <h2>Add Animals</h2>
+    <form action="/mongooses" method="post">
+      <label for="name">Name</label>
+      <input type="text" name="name" placeholder="name">
+
+      <label for="animal">Animal</label>
+      <input type="text" name="animal" placeholder="animal">
+
+      <input type="submit">
+    </form>
+
+
+  </div>
+</body>
+</html>

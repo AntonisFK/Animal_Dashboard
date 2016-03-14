@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Show</title>
+</head>
+<body>
+  <div class="wrapper">
+     <table>
+     <tr>
+      <td>Animals</td>
+      <td>Created by</td>
+    </tr>
+  
+    <tr>
+        <td><%=animal.animal%>  </td>
+        <td><%=animal.name%>  </td>
+        <td> 
+          <form action="/mongooses/<%=animal.id %>/destroy" method="post">
+            <input type="submit" value="Delete">
+          </form>
+        </td>
+    </tr>
+    </table>
+  
+<h2>Edit Animal</h2>
+<form action="/mongooses/<%=animal.id %>" method= 'post'>
+  
+  <label for="name">Name</label>
+  <input type="text" name='name' value= "<%=animal.name%>">
+  <label for="animal">Animal</label>
+  <input type="text" name="animal" value= "<%= animal.animal%>">
+  <input type="submit" value= "edit">
+
+</form>
+  <a href="/">Home</a>
+  </div>
+</body>
+</html>
