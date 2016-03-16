@@ -1,39 +1,23 @@
-var express = require('express');
-var path = require('path');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose')
-
+// require express and path
+var express = require("express");
+var path = require("path");
+// create the express app
 var app = express();
-
-//connect and create database 
-mongoose.connect('mongodb://localhost/MongooseDashboard');
-
-mongoose.connection.on('error', function (err){});
-
-// declare Animal schema 
-
-var AnimalSchema = new mongoose.Schema({
-  name:  String,  
-  animal: String 
-})
-
-//validations
-AnimalSchema.path('name').required(true, "Name cannont be blank")
-AnimalSchema.path('animal').required(true,"Animal cannot be blank")
-
-//store Schema under name Animal 
-var Animal = mongoose.model('Animal', AnimalSchema)
+// require bodyParser since we need to handle post data for adding a user
+var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended:true}));
+// static content 
+app.use(express.static(path.join(__dirname, "./client/static")));
 // setting up ejs and our views folder
-app.set('views', path.join(__dirname, './views'));
+app.set('views', path.join(__dirname, './client/views'));
 app.set('view engine', 'ejs');
-
-//we're going to have /routes/index.js handle all of our routing
-
-// setting server to run on port 3000
- app.listen(3000, function() {
- console.log("listening on port 3000!");
+// require the mongoose configuration file which does the rest for us
+require('./server/config/mongoose.js');
+// store the function in a variable
+var routes_setter = require('./server/config/routes.js');
+// invoke the function stored in routes_setter and pass it the "app" variable
+routes_setter(app)
+// tell the express app to listen on port 8000
+app.listen(3000, function() {
+  console.log("listening on port 3000 mongoose dashboard");
 })
-
-var route = require('./routes/index.js')(app, Animal);
-
